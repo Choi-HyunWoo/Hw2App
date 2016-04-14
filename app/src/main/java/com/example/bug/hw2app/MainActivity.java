@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Permission request const
+    // Runtime permission request const
     public static final int MY_PERMISSIONS_REQUEST_SEND_RECEIVE_SMS = 0;
 
     TextView textView;
@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // View Initialize
         textView = (TextView)findViewById(R.id.textView);
         textView.setText("나는 SMS 수신 브로드캐스트 등록자 이다.");
 

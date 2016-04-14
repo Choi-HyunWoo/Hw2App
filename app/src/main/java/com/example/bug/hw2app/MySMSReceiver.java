@@ -14,8 +14,8 @@ import android.widget.Toast;
  */
 public class MySMSReceiver extends BroadcastReceiver {
 
-    static final String logTag = "SmsReceiver";
     static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
+
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(ACTION)) {
@@ -25,6 +25,7 @@ public class MySMSReceiver extends BroadcastReceiver {
             if (bundle == null) return;
             Object[] messages = (Object[]) bundle.get("pdus");
             if (messages == null) return;
+
             SmsMessage[] smsMessage = new SmsMessage[messages.length];      // message 처리
 
             for (int i = 0; i < messages.length; i++) {
@@ -33,7 +34,7 @@ public class MySMSReceiver extends BroadcastReceiver {
             }
 
             // SMS 발신 번호 확인
-            String origNumber = smsMessage[0].getOriginatingAddress();
+            String origNumber = smsMessage[0].getOriginatingAddress();      // 광고 문자 시 이 번호로 답장
 
             // SMS 메시지 확인
             String message = smsMessage[0].getMessageBody().toString();
@@ -46,8 +47,9 @@ public class MySMSReceiver extends BroadcastReceiver {
                 // "Do not Send AD" message send
                 Toast.makeText(context, "ad!!", Toast.LENGTH_SHORT).show();
 
+                // SMS 발송을 위한 SmsManager 객체 받아옴
                 SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(origNumber, null, "Do not Send AD", null, null);
+                smsManager.sendTextMessage(origNumber, null, "Do not Send AD", null, null);     // AD를 보낸 번호(origNumber)로 "Do not Send AD" 라는 메세지를 답장
             }
 
         }
