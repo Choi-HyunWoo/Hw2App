@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         /** 1. 권한 확인 변수 설정 (내가 필요로 하는 permission이 이 액티비티에서 허가되었는지를 판단) */
         int permissionCheck1 = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS);
         int permissionCheck2 = ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS);
+
         /** 2. 권한 요청 (PERMISSION_GRANTED = permission 인정) */
         // 이 App에 대해 다음 permission들이 하나라도 허가되지 않았다면,
         if (permissionCheck1 != PackageManager.PERMISSION_GRANTED || permissionCheck2 != PackageManager.PERMISSION_GRANTED) {
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                     MY_PERMISSIONS_REQUEST_SEND_RECEIVE_SMS
             );
         }
+
     }
 
 
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_SEND_RECEIVE_SMS :
+            case MY_PERMISSIONS_REQUEST_SEND_RECEIVE_SMS :      // 내가 보낸 permission request에 대한 응답인지를 상수로 확인
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted, yay! Do the contacts-related task you need to do.
@@ -56,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return;
         }
-
         // other 'case' lines to check for other permissions this app might request
 
     }

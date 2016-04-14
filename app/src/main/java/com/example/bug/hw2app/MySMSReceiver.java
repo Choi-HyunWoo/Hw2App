@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Created by bug on 2016. 4. 14..
@@ -18,6 +17,7 @@ public class MySMSReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
         if (intent.getAction().equals(ACTION)) {
 
             // SMS message parsing
@@ -36,16 +36,14 @@ public class MySMSReceiver extends BroadcastReceiver {
             // SMS 발신 번호 확인
             String origNumber = smsMessage[0].getOriginatingAddress();      // 광고 문자 시 이 번호로 답장
 
-            // SMS 메시지 확인
+            // 받은 메세지를 String에 저장
             String message = smsMessage[0].getMessageBody().toString();
             Log.d("문자 내용", "발신자 : "+origNumber+", 내용 : " + message);
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+            // Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 
 
             // 문자 내용에서 "AD" 혹은 "ad"라는 단어가 포함되었다면
             if (message.contains("AD") || message.contains("ad")) {
-                // "Do not Send AD" message send
-                Toast.makeText(context, "ad!!", Toast.LENGTH_SHORT).show();
 
                 // SMS 발송을 위한 SmsManager 객체 받아옴
                 SmsManager smsManager = SmsManager.getDefault();
@@ -53,7 +51,9 @@ public class MySMSReceiver extends BroadcastReceiver {
             }
 
         }
+
     }
+
 }
 
 
